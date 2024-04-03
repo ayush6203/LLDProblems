@@ -1,4 +1,4 @@
-﻿namespace LLDProblems
+﻿namespace LLDProblems.StandardProblems
 {
     public class TicTacToe
     {
