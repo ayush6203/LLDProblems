@@ -50,6 +50,31 @@
             return true;
         }
 
+        public IList<string> GetKWords(int n)
+        {
+            IList<string> lt = new List<string>();
+            DFS(_root, n, "", lt);
+            return lt;
+        }
+
+        private void DFS(TrieNode node, int k, string curr, IList<string> lt)
+        {
+            if (lt.Count == k)
+                return;
+
+            if (node.IsEndOfWord)
+                lt.Add(curr);
+
+            for(int i = 0; i < 26; i++)
+            {
+                if(node.Child[i] != null)
+                {
+                    char ch = (char)('a' + i);
+                    DFS(node.Child[i], k, curr + ch, lt);
+                }
+            }
+        }
+
         class TrieNode
         {
             public bool IsEndOfWord = false;
