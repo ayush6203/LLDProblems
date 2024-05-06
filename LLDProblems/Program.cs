@@ -1,14 +1,23 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using LLDProblems.DataStructuresDesign;
 using LLDProblems.StandardProblems;
-
+using LLDProblems.StandardProblems.ShoppingCoupon;
 
 Console.WriteLine("Here you will find all LLD problems");
 //TicTacToe ticTacToe = new TicTacToe();
-//ticTacToe.StartGame();
+//ticTacToe.StartGame
 
 
+//ParkingLotManager parkingLotManger = new ParkingLotManager();
+//parkingLotManger.AddParkingLot(2, 5, Location.Noida);
+//var ticket = parkingLotManger.ParkVehicle(Color.Red, "UP16EB4247", Location.Noida, SlotType.FourWheelr);
+//ticket.EntryTime = ticket.EntryTime.AddHours(-2);
+//parkingLotManger.ExitVehicle(ticket, Location.Noida);
 
+
+//ShoppingCouponApply shoppingCouponApply = new ShoppingCouponApply();
+//shoppingCouponApply.PerformAction();
+//shoppingCouponApply.FindSum();
 
 
 
@@ -32,14 +41,24 @@ Console.WriteLine("Here you will find all LLD problems");
 
 
 // Trie Design
-Trie trie = new Trie();
-trie.Insert("a");
-trie.Insert("ab");
-trie.Insert("abc");
-trie.Insert("apple");
-trie.Insert("applea");
-trie.Search("apple");
-trie.Search("applea");
+//Trie trie = new Trie();
+//trie.Insert("a");
+//trie.Insert("ab");
+//trie.Insert("abc");
+//trie.Insert("apple");
+//trie.Insert("applea");
+//trie.Search("apple");
+//trie.Search("applea");
 
 
+// Merge Sorting
+//int[] inputArr = new int[] { 1, 3, 4, 2 };
+//MergeSort mergeSort = new MergeSort();
+//var res = mergeSort.Sort(inputArr);
+
+
+// Quick Sorting
+//int[] inputArr1 = new int[] { 1, 3, 4, 2 };
+//QuickSort quickSort = new QuickSort();
+//var res1 = quickSort.Sort(inputArr1);
 #endregion

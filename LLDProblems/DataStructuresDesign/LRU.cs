@@ -1,72 +1,66 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections.Generic;
 
-namespace LLDProblems.DataStructuresDesign
+public class LRUCache
 {
-    public class LRU
+    private int _size;
+    private int _currCount;
+    private Dictionary<int, LinkedListNode<CacheNode>> _keyValueStore;
+    private LinkedList<CacheNode> _deQueue;
+
+    public LRUCache(int capacity)
     {
-        private int _size;
-        private int _currCount;
-        private Dictionary<string, CacheNode> _keyValueStore;
-        private LinkedList<CacheNode> _deQueue;
+        _currCount = 0;
+        _size = capacity;
+        _keyValueStore = new Dictionary<int, LinkedListNode<CacheNode>>();
+        _deQueue = new LinkedList<CacheNode>();
+    }
 
-        public LRU(int size)
+    public int Get(int key)
+    {
+        if (!_keyValueStore.ContainsKey(key))
+            return -1;
+
+        LinkedListNode<CacheNode> node = _keyValueStore[key];
+        MoveNodeToFirst(node);
+        return node.Value._value; ;
+    }
+
+    public void Put(int key, int value)
+    {
+        if (_keyValueStore.ContainsKey(key))
         {
-            _currCount = 0;
-            _size = size;
-            _keyValueStore = new Dictionary<string, CacheNode>();
-            _deQueue = new LinkedList<CacheNode>();
+            LinkedListNode<CacheNode> node = _keyValueStore[key];
+            node.Value._value = value;
+
+            MoveNodeToFirst(node);
+            return;
         }
 
-        public string GetValue(string key)
+        ++_currCount;
+        LinkedListNode<CacheNode> node1 = _deQueue.AddFirst(new CacheNode(key, value));
+        _keyValueStore.Add(key, node1);
+
+        if (_currCount > _size)
         {
-            if (!_keyValueStore.ContainsKey(key))
-                return "key doesn't exist!";
-
-            CacheNode requestedObj = _keyValueStore[key];
-            _deQueue.Remove(requestedObj);
-            _deQueue.AddLast(requestedObj);
-            return requestedObj._value;
+            --_currCount;
+            LinkedListNode<CacheNode> node = _deQueue.Last;
+            _keyValueStore.Remove(node.Value._key);
+            _deQueue.Remove(node);
         }
+    }
 
-        public void AddKeyValue(string key, string value)
-        {
-            if (_keyValueStore.ContainsKey(key))
-            {
-                CacheNode existingNode = _keyValueStore[key];
-                _deQueue.Remove(existingNode);
-                _deQueue.AddLast(existingNode);
-                return;
-            }
-
-            if(_currCount == _size)
-            {
-                CacheNode leastUsedNode = _deQueue.First();
-                _keyValueStore.Remove(leastUsedNode._key);
-                _deQueue.Remove(leastUsedNode);
-
-                CacheNode newNode = new CacheNode(key, value);
-                _deQueue.AddLast(newNode);
-                _keyValueStore.Add(key, newNode);
-                return;
-            }
-
-            ++_currCount;
-            CacheNode node = new CacheNode(key, value);
-            _deQueue.AddLast(node);
-            _keyValueStore.Add(key, node);
-
-        }
-
+    private void MoveNodeToFirst(LinkedListNode<CacheNode> node)
+    {
+        _deQueue.Remove(node);
+        _deQueue.AddFirst(node);
     }
 
     class CacheNode
     {
-        public string _key, _value;
-        public CacheNode(string key, string value)
+        public int _key, _value;
+        public CacheNode(int key, int value)
         {
             _key = key;
             _value = value;
@@ -74,14 +68,9 @@ namespace LLDProblems.DataStructuresDesign
     }
 }
 
-/*
- This is generally used in Caching strategy, in which the value which is used long back is removed and the latest value is pushed back.
-
-
- Actions
- - Get value based on the provided key
- - Store key value information
-    - If inserted first time and space is avalable simple insert
-    - If inserted first time and space is not available
-    - If already present, mark it as latest used 
-*/
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache obj = new LRUCache(capacity);
+ * int param_1 = obj.Get(key);
+ * obj.Put(key,value);
+ */

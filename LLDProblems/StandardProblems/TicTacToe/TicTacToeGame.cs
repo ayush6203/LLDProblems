@@ -1,11 +1,11 @@
-﻿namespace LLDProblems.StandardProblems
+﻿namespace LLDProblems.StandardProblems.TicTacToe
 {
-    public class TicTacToe
+    public class TicTacToeGame
     {
         Queue<Player> players;
         Board board;
 
-        public TicTacToe()
+        public TicTacToeGame()
         {
             InitGame();
         }
@@ -77,7 +77,7 @@
         }
     }
 
-    class Player
+    public class Player
     {
         public string Name;
         public Piece Piece;
@@ -89,7 +89,7 @@
         }
     }
 
-    class Board
+    public class Board
     {
         public int BoardSize;
         public Piece[][] Playingboard;
@@ -136,7 +136,7 @@
         }
     }
 
-    class PieceO : Piece
+    public class PieceO : Piece
     {
         public PieceO() : base(PieceType.O)
         {
@@ -144,7 +144,7 @@
         }
     }
 
-    class PieceX : Piece
+    public class PieceX : Piece
     {
         public PieceX() : base(PieceType.X)
         {
@@ -152,7 +152,7 @@
         }
     }
 
-    class Piece
+    public class Piece
     {
         public PieceType PieceType { get; set; }
         public Piece(PieceType pieceType)
@@ -161,7 +161,7 @@
         }
     }
 
-    enum PieceType
+    public enum PieceType
     {
         X,
         O
